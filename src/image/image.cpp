@@ -9,11 +9,6 @@ Image::Image(const char * input_file_path)
     Read(input_file_path);
 }
 
-Image::Image(const Header & header, const InfoHeader & info_header, const Pixels & pixels)
-    : header_(header)
-    , info_header_(info_header)
-    , pixels_(pixels){};
-
 void Image::Read(const char * input_file_path)
 {
     std::ifstream input(input_file_path, std::ios_base::binary);

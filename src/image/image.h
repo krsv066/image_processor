@@ -47,7 +47,6 @@ class Image
 {
 public:
     explicit Image(const char * input_file_path);
-    explicit Image(const Header & header, const InfoHeader & info_header, const Pixels & pixels);
     void Read(const char * input_file_path);
     void Write(const char * output_file_path);
     Pixels GetPixels() const;

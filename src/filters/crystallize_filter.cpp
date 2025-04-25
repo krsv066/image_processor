@@ -1,5 +1,7 @@
 #include "crystallize_filter.h"
 #include <cmath>
+#include <limits>
+#include <utility>
 
 namespace image_processor
 {
@@ -17,7 +19,7 @@ std::vector<std::pair<int32_t, int32_t>> Crystallize::RandomCoords(int32_t cryst
 int32_t
 Crystallize::FindNearestPixel(const std::vector<std::pair<int32_t, int32_t>> & random_coords, const std::pair<int32_t, int32_t> & coords)
 {
-    double best_distance = static_cast<double>(UINT32_MAX);
+    double best_distance = std::numeric_limits<double>::max();
     int32_t best_pixel_number = 0;
     for (int32_t i = 0; i < random_coords.size(); ++i)
     {
@@ -39,11 +41,11 @@ void Crystallize::Process(Image & image, int64_t int_param1, int64_t int_param2,
 {
     Pixels pixels = image.GetPixels();
 
-    const int32_t crystals_count = static_cast<int32_t>(int_param1);
+    const int64_t crystals_count = int_param1;
     std::vector<std::pair<int32_t, int32_t>> random_coords = RandomCoords(crystals_count, image.GetHeight(), image.GetWidth());
 
     std::vector<Pixel> random_pixels_colors;
-    for (size_t i = 0; i < crystals_count; ++i)
+    for (int64_t i = 0; i < crystals_count; ++i)
     {
         random_pixels_colors.push_back(pixels[random_coords[i].first][random_coords[i].second]);
     }
@@ -55,7 +57,7 @@ void Crystallize::Process(Image & image, int64_t int_param1, int64_t int_param2,
     {
         for (size_t column_num = 0; column_num < image.GetWidth(); ++column_num)
         {
-            int32_t number = FindNearestPixel(random_coords, std::pair<int32_t, int32_t>{line_num, column_num});
+            int32_t number = FindNearestPixel(random_coords, std::make_pair(line_num, column_num));
             new_pixels[line_num][column_num] = random_pixels_colors[number];
         }
     }

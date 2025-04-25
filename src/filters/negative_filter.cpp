@@ -1,4 +1,6 @@
 #include "negative_filter.h"
+#include <cstdint>
+#include <limits>
 
 namespace image_processor
 {
@@ -7,15 +9,13 @@ void Negative::Process(Image & image, int64_t int_param1, int64_t int_param2, do
 {
     Pixels pixels = image.GetPixels();
 
-    const uint8_t max_char = 255;
-
     for (auto & line : pixels)
     {
         for (auto & pixel : line)
         {
-            pixel.Blue = max_char - pixel.Blue;
-            pixel.Green = max_char - pixel.Green;
-            pixel.Red = max_char - pixel.Red;
+            pixel.Blue = std::numeric_limits<uint8_t>::max() - pixel.Blue;
+            pixel.Green = std::numeric_limits<uint8_t>::max() - pixel.Green;
+            pixel.Red = std::numeric_limits<uint8_t>::max() - pixel.Red;
         }
     }
 

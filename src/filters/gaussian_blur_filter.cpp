@@ -1,11 +1,12 @@
 #include "gaussian_blur_filter.h"
 #include <algorithm>
 #include <cmath>
+#include <numeric>
 
 namespace image_processor
 {
 
-std::vector<double> GaussianBlur::CalculateCoefficient(const double sigma, const int64_t delta_window)
+std::vector<double> GaussianBlur::CalculateCoefficient(double sigma, int64_t delta_window)
 {
     const int64_t window_size = delta_window * 2 + 1;
     std::vector<double> coefficients;
@@ -19,18 +20,7 @@ std::vector<double> GaussianBlur::CalculateCoefficient(const double sigma, const
     return coefficients;
 }
 
-double GaussianBlur::CalculateSum(const std::vector<double> & coefficients)
-{
-    double sum_res = 0;
-    for (auto i : coefficients)
-    {
-        sum_res += i;
-    }
-    return sum_res;
-}
-
-void GaussianBlur::ProcessLines(
-    Image & image, const std::vector<double> & coefficients, double coefficients_sum, const int64_t delta_window)
+void GaussianBlur::ProcessLines(Image & image, const std::vector<double> & coefficients, double coefficients_sum, int64_t delta_window)
 {
     Pixels pixels = image.GetPixels();
     std::vector<Pixel> new_pixels_line(image.GetHeight(), {0, 0, 0});
@@ -63,8 +53,7 @@ void GaussianBlur::ProcessLines(
     image.SetPixels(new_pixels);
 }
 
-void GaussianBlur::ProcessColumns(
-    Image & image, const std::vector<double> & coefficients, double coefficients_sum, const int64_t delta_window)
+void GaussianBlur::ProcessColumns(Image & image, const std::vector<double> & coefficients, double coefficients_sum, int64_t delta_window)
 {
     Pixels pixels = image.GetPixels();
     std::vector<Pixel> new_pixel_line(image.GetHeight(), {0, 0, 0});
@@ -90,7 +79,7 @@ void GaussianBlur::ProcessColumns(
             new_green = new_green / coefficients_sum;
             new_red = new_red / coefficients_sum;
 
-            Pixel new_pixel{static_cast<uint8_t>(new_blue), static_cast<uint8_t>(new_green), static_cast<uint8_t>(new_red)};
+            Pixel new_pixel = {static_cast<uint8_t>(new_blue), static_cast<uint8_t>(new_green), static_cast<uint8_t>(new_red)};
             new_pixels[y_0][column] = new_pixel;
         }
     }
@@ -104,7 +93,7 @@ void GaussianBlur::Process(Image & image, int64_t int_param1, int64_t int_param2
     const int64_t delta_window = 3 * sigma_ceil;
 
     const std::vector<double> coefficients = CalculateCoefficient(sigma, delta_window);
-    double coefficients_sum = CalculateSum(coefficients);
+    const double coefficients_sum = std::accumulate(coefficients.begin(), coefficients.end(), 0.0);
 
     ProcessLines(image, coefficients, coefficients_sum, delta_window);
     ProcessColumns(image, coefficients, coefficients_sum, delta_window);
