@@ -1,5 +1,4 @@
 #include "abstract_filter.h"
-#include <set>
 
 class Crystallize : AbstractFilter {
 public:

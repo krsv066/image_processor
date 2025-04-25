@@ -1,12 +1,22 @@
 cmake_minimum_required(VERSION 3.22.1)
 
-project(image_processor)
+project(image_processor LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+add_compile_options(-Wall -Wextra -Wpedantic -O3)
+
+include_directories(
+        src/commands_parser
+        src/filters
+        src/image
+)
 
 add_executable(
         image_processor
-        image_processor.cpp
+        src/main.cpp
         src/commands_parser/parser.cpp
         src/image/image.cpp
         src/filters/scale_filter.cpp

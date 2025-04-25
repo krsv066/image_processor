@@ -1,12 +1,12 @@
-#include "src/image/image.h"
-#include "src/commands_parser/parser.h"
-#include "src/filters/negative_filter.h"
-#include "src/filters/grayscale_filter.h"
-#include "src/filters/sharpening_filter.h"
-#include "src/filters/edge_detection_filter.h"
-#include "src/filters/crop_filter.h"
-#include "src/filters/gaussian_blur_filter.h"
-#include "src/filters/crystallize_filter.h"
+#include "image.h"
+#include "parser.h"
+#include "negative_filter.h"
+#include "grayscale_filter.h"
+#include "sharpening_filter.h"
+#include "edge_detection_filter.h"
+#include "crop_filter.h"
+#include "gaussian_blur_filter.h"
+#include "crystallize_filter.h"
 
 int main(int argc, char **argv) {
     Parser cmd_parser;

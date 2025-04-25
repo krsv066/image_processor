@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../image/image.h"
+#include "image.h"
 
 class AbstractFilter {
 public:
