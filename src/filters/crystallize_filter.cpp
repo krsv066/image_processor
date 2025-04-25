@@ -4,7 +4,7 @@
 namespace image_processor
 {
 
-std::vector<std::pair<int32_t, int32_t>> Crystallize::RandomCoords(const int32_t crystals_count, const int32_t height, const int32_t width)
+std::vector<std::pair<int32_t, int32_t>> Crystallize::RandomCoords(int32_t crystals_count, int32_t height, int32_t width)
 {
     std::vector<std::pair<int32_t, int32_t>> numbers;
     for (size_t i = 0; i < crystals_count; ++i)

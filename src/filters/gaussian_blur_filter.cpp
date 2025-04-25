@@ -13,8 +13,7 @@ std::vector<double> GaussianBlur::CalculateCoefficient(const double sigma, const
 
     for (int64_t i = 0; i < window_size; ++i)
     {
-        coefficients.push_back(
-            std::exp(-(static_cast<double>(i - delta_window) * static_cast<double>(i - delta_window)) / (2 * (sigma * sigma))));
+        coefficients.push_back(std::exp(-(static_cast<double>(i - delta_window) * (i - delta_window)) / (2 * (sigma * sigma))));
     }
 
     return coefficients;

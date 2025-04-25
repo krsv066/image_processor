@@ -1,7 +1,9 @@
+#include <cstdint>
+
 namespace image_processor
 {
 
-enum class FilterType
+enum class FilterType : uint8_t
 {
     Crop,
     Grayscale,

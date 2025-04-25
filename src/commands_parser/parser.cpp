@@ -4,7 +4,7 @@
 namespace image_processor
 {
 
-CmdParams Parser::Parse(int argc, char ** argv)
+CmdParams Parser::Parse(int argc, char * argv[])
 {
     CmdParams cmd_params;
     std::vector<FilterParams> filters_params;
@@ -32,8 +32,8 @@ CmdParams Parser::Parse(int argc, char ** argv)
                 }
                 filters_params.emplace_back(FilterParams{
                     .Filter = FilterType::Crop,
-                    .IntParam1 = std::atoll(argv[i + 1]),
-                    .IntParam2 = std::atoll(argv[i + 2]),
+                    .IntParam1 = std::stoll(argv[i + 1]),
+                    .IntParam2 = std::stoll(argv[i + 2]),
                 });
                 i += 3;
             }
@@ -70,7 +70,7 @@ CmdParams Parser::Parse(int argc, char ** argv)
                 }
                 filters_params.emplace_back(FilterParams{
                     .Filter = FilterType::EdgeDetection,
-                    .DoubleParam = std::atof(argv[i + 1]),
+                    .DoubleParam = std::stof(argv[i + 1]),
                 });
                 i += 2;
             }
@@ -83,7 +83,7 @@ CmdParams Parser::Parse(int argc, char ** argv)
                 }
                 filters_params.emplace_back(FilterParams{
                     .Filter = FilterType::GaussianBlur,
-                    .DoubleParam = std::atof(argv[i + 1]),
+                    .DoubleParam = std::stof(argv[i + 1]),
                 });
                 i += 2;
             }
@@ -96,7 +96,7 @@ CmdParams Parser::Parse(int argc, char ** argv)
                 }
                 filters_params.emplace_back(FilterParams{
                     .Filter = FilterType::Crystallize,
-                    .IntParam1 = std::atoll(argv[i + 1]),
+                    .IntParam1 = std::stoll(argv[i + 1]),
                 });
                 i += 2;
             }
@@ -111,7 +111,7 @@ CmdParams Parser::Parse(int argc, char ** argv)
     }
     catch (std::exception & e)
     {
-        std::cout << e.what() << std::endl;
+        std::cerr << e.what() << std::endl;
     }
 
     return cmd_params;

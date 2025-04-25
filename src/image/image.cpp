@@ -9,6 +9,11 @@ Image::Image(const char * input_file_path)
     Read(input_file_path);
 }
 
+Image::Image(const Header & header, const InfoHeader & info_header, const Pixels & pixels)
+    : header_(header)
+    , info_header_(info_header)
+    , pixels_(pixels){};
+
 void Image::Read(const char * input_file_path)
 {
     std::ifstream input(input_file_path, std::ios_base::binary);
@@ -31,7 +36,7 @@ void Image::Read(const char * input_file_path)
         throw std::runtime_error("Unrecognized file format. Only 24 bits allowed.");
     }
 
-    input.seekg(header_.offset_data, input.beg);
+    input.seekg(header_.offset_data, std::ifstream::beg);
 
     const uint32_t offset = CountOffset();
 
@@ -45,7 +50,7 @@ void Image::Read(const char * input_file_path)
             line.push_back(pixel);
         }
         pixels_.push_back(line);
-        input.seekg(offset, input.cur);
+        input.seekg(offset, std::ifstream::cur);
     }
 }
 
