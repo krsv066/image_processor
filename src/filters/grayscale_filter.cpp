@@ -3,7 +3,7 @@
 namespace image_processor
 {
 
-void Grayscale::Process(Image & image, int64_t int_param1, int64_t int_param2, double double_param)
+void Grayscale::Process(Image & image, int64_t, int64_t, double)
 {
     Pixels pixels = image.GetPixels();
 

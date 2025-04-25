@@ -1,5 +1,6 @@
 #include "crystallize_filter.h"
 #include <cmath>
+#include <cstdint>
 #include <limits>
 #include <utility>
 
@@ -9,7 +10,7 @@ namespace image_processor
 std::vector<std::pair<int32_t, int32_t>> Crystallize::RandomCoords(int32_t crystals_count, int32_t height, int32_t width)
 {
     std::vector<std::pair<int32_t, int32_t>> numbers;
-    for (size_t i = 0; i < crystals_count; ++i)
+    for (int32_t i = 0; i < crystals_count; ++i)
     {
         numbers.emplace_back(std::make_pair(static_cast<int32_t>(std::rand()) % height, static_cast<int32_t>(std::rand()) % width));
     }
@@ -21,7 +22,7 @@ Crystallize::FindNearestPixel(const std::vector<std::pair<int32_t, int32_t>> & r
 {
     double best_distance = std::numeric_limits<double>::max();
     int32_t best_pixel_number = 0;
-    for (int32_t i = 0; i < random_coords.size(); ++i)
+    for (size_t i = 0; i < random_coords.size(); ++i)
     {
         double distance = std::sqrt(
             (coords.first - random_coords[i].first) * (coords.first - random_coords[i].first)
@@ -37,7 +38,7 @@ Crystallize::FindNearestPixel(const std::vector<std::pair<int32_t, int32_t>> & r
     return best_pixel_number;
 }
 
-void Crystallize::Process(Image & image, int64_t int_param1, int64_t int_param2, double double_param)
+void Crystallize::Process(Image & image, int64_t int_param1, int64_t, double)
 {
     Pixels pixels = image.GetPixels();
 
@@ -53,9 +54,9 @@ void Crystallize::Process(Image & image, int64_t int_param1, int64_t int_param2,
     std::vector<Pixel> new_pixels_line(image.GetHeight(), {0, 0, 0});
     std::vector<std::vector<Pixel>> new_pixels(image.GetHeight(), new_pixels_line);
 
-    for (size_t line_num = 0; line_num < image.GetHeight(); ++line_num)
+    for (int32_t line_num = 0; line_num < image.GetHeight(); ++line_num)
     {
-        for (size_t column_num = 0; column_num < image.GetWidth(); ++column_num)
+        for (int32_t column_num = 0; column_num < image.GetWidth(); ++column_num)
         {
             int32_t number = FindNearestPixel(random_coords, std::make_pair(line_num, column_num));
             new_pixels[line_num][column_num] = random_pixels_colors[number];

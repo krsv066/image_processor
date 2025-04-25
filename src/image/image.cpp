@@ -35,10 +35,10 @@ void Image::Read(const char * input_file_path)
 
     const uint32_t offset = CountOffset();
 
-    for (size_t i = 0; i < info_header_.height; ++i)
+    for (int32_t i = 0; i < info_header_.height; ++i)
     {
         std::vector<Pixel> line;
-        for (size_t j = 0; j < info_header_.width; ++j)
+        for (int32_t j = 0; j < info_header_.width; ++j)
         {
             Pixel pixel;
             input.read(reinterpret_cast<char *>(&pixel), sizeof(pixel));

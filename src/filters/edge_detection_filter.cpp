@@ -6,7 +6,7 @@
 namespace image_processor
 {
 
-void EdgeDetection::Process(Image & image, int64_t int_param1, int64_t int_param2, double double_param)
+void EdgeDetection::Process(Image & image, int64_t, int64_t, double double_param)
 {
     Grayscale grayscale_filter;
     grayscale_filter.Process(image, 0, 0, 0);

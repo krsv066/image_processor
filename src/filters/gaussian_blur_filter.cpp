@@ -86,7 +86,7 @@ void GaussianBlur::ProcessColumns(Image & image, const std::vector<double> & coe
     image.SetPixels(new_pixels);
 }
 
-void GaussianBlur::Process(Image & image, int64_t int_param1, int64_t int_param2, double double_param)
+void GaussianBlur::Process(Image & image, int64_t, int64_t, double double_param)
 {
     const double sigma = double_param;
     const int64_t sigma_ceil = std::ceil(sigma);
