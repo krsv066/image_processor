@@ -19,6 +19,7 @@ add_executable(
         src/main.cpp
         src/commands_parser/parser.cpp
         src/image/image.cpp
+        src/filters/concrete_filter_factory.cpp
         src/filters/scale_filter.cpp
         src/filters/negative_filter.cpp
         src/filters/grayscale_filter.cpp

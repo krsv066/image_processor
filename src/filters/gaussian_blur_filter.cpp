@@ -1,4 +1,5 @@
 #include "gaussian_blur_filter.h"
+
 #include <algorithm>
 #include <cmath>
 #include <numeric>

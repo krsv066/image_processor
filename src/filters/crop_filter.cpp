@@ -1,4 +1,5 @@
 #include "crop_filter.h"
+
 #include <algorithm>
 
 namespace image_processor

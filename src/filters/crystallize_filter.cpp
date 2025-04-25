@@ -1,7 +1,9 @@
 #include "crystallize_filter.h"
+
 #include <cmath>
 #include <cstdint>
 #include <limits>
+#include <random>
 #include <utility>
 
 namespace image_processor

@@ -1,4 +1,5 @@
 #include "scale_filter.h"
+
 #include <algorithm>
 
 namespace image_processor

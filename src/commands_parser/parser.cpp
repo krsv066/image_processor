@@ -1,4 +1,5 @@
 #include "parser.h"
+
 #include <iostream>
 
 namespace image_processor

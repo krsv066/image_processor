@@ -1,4 +1,5 @@
 #include "negative_filter.h"
+
 #include <cstdint>
 #include <limits>
 

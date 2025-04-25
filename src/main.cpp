@@ -1,13 +1,9 @@
-#include <iostream>
-#include "crop_filter.h"
-#include "crystallize_filter.h"
-#include "edge_detection_filter.h"
-#include "gaussian_blur_filter.h"
-#include "grayscale_filter.h"
+#include "concrete_filter_factory.h"
+#include "filter_factory.h"
 #include "image.h"
-#include "negative_filter.h"
 #include "parser.h"
-#include "sharpening_filter.h"
+
+#include <iostream>
 
 int main(int argc, char * argv[])
 {
@@ -17,46 +13,19 @@ int main(int argc, char * argv[])
     try
     {
         image_processor::Image image(cmd_params.InputFilePath);
+        std::unique_ptr<image_processor::FilterFactory> factory = std::make_unique<image_processor::ConcreteFilterFactory>();
 
         for (const auto & param : params)
         {
-            switch (param.Filter)
+            std::unique_ptr<image_processor::AbstractFilter> filter = factory->CreateFilter(param.Filter);
+
+            if (filter)
             {
-                case image_processor::FilterType::Crop: {
-                    image_processor::Crop filter;
-                    filter.Process(image, param.IntParam1, param.IntParam2, 0);
-                    break;
-                }
-                case image_processor::FilterType::Grayscale: {
-                    image_processor::Grayscale filter;
-                    filter.Process(image, 0, 0, 0);
-                    break;
-                }
-                case image_processor::FilterType::Negative: {
-                    image_processor::Negative filter;
-                    filter.Process(image, 0, 0, 0);
-                    break;
-                }
-                case image_processor::FilterType::Sharpening: {
-                    image_processor::Sharpening filter;
-                    filter.Process(image, 0, 0, 0);
-                    break;
-                }
-                case image_processor::FilterType::EdgeDetection: {
-                    image_processor::EdgeDetection filter;
-                    filter.Process(image, 0, 0, param.DoubleParam);
-                    break;
-                }
-                case image_processor::FilterType::GaussianBlur: {
-                    image_processor::GaussianBlur filter;
-                    filter.Process(image, 0, 0, param.DoubleParam);
-                    break;
-                }
-                case image_processor::FilterType::Crystallize: {
-                    image_processor::Crystallize filter;
-                    filter.Process(image, param.IntParam1, 0, 0);
-                    break;
-                }
+                filter->Process(image, param.IntParam1, param.IntParam2, param.DoubleParam);
+            }
+            else
+            {
+                std::cerr << "Failed to create filter of specified type" << std::endl;
             }
         }
 

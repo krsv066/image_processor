@@ -1,7 +1,8 @@
 #include "edge_detection_filter.h"
-#include <algorithm>
 #include "grayscale_filter.h"
 #include "scale_filter.h"
+
+#include <algorithm>
 
 namespace image_processor
 {
