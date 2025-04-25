@@ -3,9 +3,13 @@
 #include <cstdint>
 #include <vector>
 
+namespace image_processor
+{
+
 #pragma pack(push, 1)
 
-struct Header {
+struct Header
+{
     uint16_t file_type;
     uint32_t file_size;
     uint16_t reserved1;
@@ -15,7 +19,8 @@ struct Header {
     bool operator==(const Header &) const = default;
 };
 
-struct InfoHeader {
+struct InfoHeader
+{
     uint32_t size;
     int32_t width;
     int32_t height;
@@ -31,10 +36,15 @@ struct InfoHeader {
     bool operator==(const InfoHeader &) const = default;
 };
 
-struct Pixel {
-    Pixel(uint8_t blue, uint8_t green, uint8_t red) : Blue(blue), Green(green), Red(red){};
+struct Pixel
+{
+    Pixel(uint8_t blue, uint8_t green, uint8_t red)
+        : Blue(blue)
+        , Green(green)
+        , Red(red){};
 
-    Pixel() : Pixel(0, 0, 0){};
+    Pixel()
+        : Pixel(0, 0, 0){};
 
     uint8_t Blue;
     uint8_t Green;
@@ -47,20 +57,23 @@ struct Pixel {
 
 using Pixels = std::vector<std::vector<Pixel>>;
 
-class Image {
+class Image
+{
 public:
-    explicit Image(const char *input_file_path);
+    explicit Image(const char * input_file_path);
 
-    explicit Image(const Header &header, const InfoHeader &info_header, const Pixels &pixels)
-        : header_(header), info_header_(info_header), pixels_(pixels){};
+    explicit Image(const Header & header, const InfoHeader & info_header, const Pixels & pixels)
+        : header_(header)
+        , info_header_(info_header)
+        , pixels_(pixels){};
 
-    void Read(const char *input_file_path);
+    void Read(const char * input_file_path);
 
-    void Write(const char *output_file_path);
+    void Write(const char * output_file_path);
 
     Pixels GetPixels() const;
 
-    void SetPixels(const Pixels &pixels);
+    void SetPixels(const Pixels & pixels);
 
     int32_t GetWidth() const;
 
@@ -79,3 +92,5 @@ private:
     InfoHeader info_header_;
     Pixels pixels_;
 };
+
+} // namespace image_processor

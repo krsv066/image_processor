@@ -7,49 +7,50 @@
 #include "crop_filter.h"
 #include "gaussian_blur_filter.h"
 #include "crystallize_filter.h"
+#include <iostream>
 
 int main(int argc, char **argv) {
-    Parser cmd_parser;
-    CmdParams cmd_params = cmd_parser.Parse(argc, argv);
-    std::vector<FilterParams> params = cmd_params.FiltersParams;
+    image_processor::Parser cmd_parser;
+    image_processor::CmdParams cmd_params = cmd_parser.Parse(argc, argv);
+    std::vector<image_processor::FilterParams> params = cmd_params.FiltersParams;
 
     try {
-        Image image(cmd_params.InputFilePath);
+        image_processor::Image image(cmd_params.InputFilePath);
 
         for (const auto &param : params) {
             switch (param.Filter) {
-                case FilterType::Crop: {
-                    Crop filter;
+                case image_processor::FilterType::Crop: {
+                    image_processor::Crop filter;
                     filter.Process(image, param.IntParam1, param.IntParam2, 0);
                     break;
                 }
-                case FilterType::Grayscale: {
-                    Grayscale filter;
+                case image_processor::FilterType::Grayscale: {
+                    image_processor::Grayscale filter;
                     filter.Process(image, 0, 0, 0);
                     break;
                 }
-                case FilterType::Negative: {
-                    Negative filter;
+                case image_processor::FilterType::Negative: {
+                    image_processor::Negative filter;
                     filter.Process(image, 0, 0, 0);
                     break;
                 }
-                case FilterType::Sharpening: {
-                    Sharpening filter;
+                case image_processor::FilterType::Sharpening: {
+                    image_processor::Sharpening filter;
                     filter.Process(image, 0, 0, 0);
                     break;
                 }
-                case FilterType::EdgeDetection: {
-                    EdgeDetection filter;
+                case image_processor::FilterType::EdgeDetection: {
+                    image_processor::EdgeDetection filter;
                     filter.Process(image, 0, 0, param.DoubleParam);
                     break;
                 }
-                case FilterType::GaussianBlur: {
-                    GaussianBlur filter;
+                case image_processor::FilterType::GaussianBlur: {
+                    image_processor::GaussianBlur filter;
                     filter.Process(image, 0, 0, param.DoubleParam);
                     break;
                 }
-                case FilterType::Crystallize: {
-                    Crystallize filter;
+                case image_processor::FilterType::Crystallize: {
+                    image_processor::Crystallize filter;
                     filter.Process(image, param.IntParam1, 0, 0);
                     break;
                 }

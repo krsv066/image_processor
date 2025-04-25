@@ -1,6 +1,12 @@
 #include "abstract_filter.h"
 
-class EdgeDetection : AbstractFilter {
+namespace image_processor
+{
+
+class EdgeDetection : AbstractFilter
+{
 public:
-    void Process(Image &image, int64_t int_param1, int64_t int_param2, double double_param) override;
+    void Process(Image & image, int64_t int_param1, int64_t int_param2, double double_param) override;
 };
+
+} // namespace image_processor

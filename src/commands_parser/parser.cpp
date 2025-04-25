@@ -1,11 +1,18 @@
 #include "parser.h"
+#include <iostream>
 
-CmdParams Parser::Parse(int argc, char **argv) {
+namespace image_processor
+{
+
+CmdParams Parser::Parse(int argc, char ** argv)
+{
     CmdParams cmd_params;
     std::vector<FilterParams> filters_params;
 
-    try {
-        if (argc < 3) {
+    try
+    {
+        if (argc < 3)
+        {
             throw std::runtime_error("Not enough arguments");
         }
 
@@ -13,11 +20,14 @@ CmdParams Parser::Parse(int argc, char **argv) {
         cmd_params.OutputFilePath = argv[2];
 
         int i = 3;
-        while (i < argc) {
+        while (i < argc)
+        {
             std::string filter = argv[i];
 
-            if (filter == "-crop") {
-                if (i + 2 >= argc) {
+            if (filter == "-crop")
+            {
+                if (i + 2 >= argc)
+                {
                     throw std::runtime_error("Not enough arguments");
                 }
                 filters_params.emplace_back(FilterParams{
@@ -28,29 +38,34 @@ CmdParams Parser::Parse(int argc, char **argv) {
                 i += 3;
             }
 
-            else if (filter == "-gs") {
+            else if (filter == "-gs")
+            {
                 filters_params.emplace_back(FilterParams{
                     .Filter = FilterType::Grayscale,
                 });
                 ++i;
             }
 
-            else if (filter == "-neg") {
+            else if (filter == "-neg")
+            {
                 filters_params.emplace_back(FilterParams{
                     .Filter = FilterType::Negative,
                 });
                 ++i;
             }
 
-            else if (filter == "-sharp") {
+            else if (filter == "-sharp")
+            {
                 filters_params.emplace_back(FilterParams{
                     .Filter = FilterType::Sharpening,
                 });
                 ++i;
             }
 
-            else if (filter == "-edge") {
-                if (i + 1 >= argc) {
+            else if (filter == "-edge")
+            {
+                if (i + 1 >= argc)
+                {
                     throw std::runtime_error("Not enough arguments");
                 }
                 filters_params.emplace_back(FilterParams{
@@ -60,8 +75,10 @@ CmdParams Parser::Parse(int argc, char **argv) {
                 i += 2;
             }
 
-            else if (filter == "-blur") {
-                if (i + 1 >= argc) {
+            else if (filter == "-blur")
+            {
+                if (i + 1 >= argc)
+                {
                     throw std::runtime_error("Not enough arguments");
                 }
                 filters_params.emplace_back(FilterParams{
@@ -71,8 +88,10 @@ CmdParams Parser::Parse(int argc, char **argv) {
                 i += 2;
             }
 
-            else if (filter == "-crystal") {
-                if (i + 1 >= argc) {
+            else if (filter == "-crystal")
+            {
+                if (i + 1 >= argc)
+                {
                     throw std::runtime_error("Not enough arguments");
                 }
                 filters_params.emplace_back(FilterParams{
@@ -82,16 +101,20 @@ CmdParams Parser::Parse(int argc, char **argv) {
                 i += 2;
             }
 
-            else {
+            else
+            {
                 throw std::runtime_error("Invalid arguments");
             }
         }
 
         cmd_params.FiltersParams = filters_params;
-
-    } catch (std::exception &e) {
+    }
+    catch (std::exception & e)
+    {
         std::cout << e.what() << std::endl;
     }
 
     return cmd_params;
 }
+
+} // namespace image_processor
