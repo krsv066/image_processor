@@ -11,7 +11,6 @@ void ScaleFilter::Process(Image & image, FilterParams params)
     std::vector<Pixel> new_pixels_line(image.GetWidth(), {0, 0, 0});
     std::vector<std::vector<Pixel>> new_pixels(image.GetHeight(), new_pixels_line);
 
-    const int64_t min_char = 0;
     const int64_t max_char = 255;
 
     for (int32_t i = 0; i < image.GetHeight(); ++i)
@@ -76,9 +75,9 @@ void ScaleFilter::Process(Image & image, FilterParams params)
                 new_red -= static_cast<int64_t>(pixels[i][j].Red);
             }
 
-            new_pixel.Blue = static_cast<uint8_t>(std::clamp(new_blue, min_char, max_char));
-            new_pixel.Green = static_cast<uint8_t>(std::clamp(new_green, min_char, max_char));
-            new_pixel.Red = static_cast<uint8_t>(std::clamp(new_red, min_char, max_char));
+            new_pixel.Blue = static_cast<uint8_t>(std::clamp(new_blue, 0ll, max_char));
+            new_pixel.Green = static_cast<uint8_t>(std::clamp(new_green, 0ll, max_char));
+            new_pixel.Red = static_cast<uint8_t>(std::clamp(new_red, 0ll, max_char));
             new_pixels[i][j] = new_pixel;
         }
     }

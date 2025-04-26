@@ -5,12 +5,12 @@
 namespace image_processor
 {
 
-Image::Image(const char * input_file_path)
+Image::Image(const std::filesystem::path & input_file_path)
 {
     Read(input_file_path);
 }
 
-void Image::Read(const char * input_file_path)
+void Image::Read(const std::filesystem::path & input_file_path)
 {
     std::ifstream input(input_file_path, std::ios_base::binary);
     if (!input)
@@ -50,7 +50,7 @@ void Image::Read(const char * input_file_path)
     }
 }
 
-void Image::Write(const char * output_file_path)
+void Image::Write(const std::filesystem::path & output_file_path)
 {
     std::ofstream output(output_file_path, std::ios_base::binary);
     if (!output)

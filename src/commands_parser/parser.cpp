@@ -17,8 +17,8 @@ CmdParams Parser::Parse(int argc, char * argv[])
             throw std::runtime_error("Not enough arguments");
         }
 
-        cmd_params.InputFilePath = argv[1];
-        cmd_params.OutputFilePath = argv[2];
+        cmd_params.input_path = std::filesystem::path(argv[1]);
+        cmd_params.output_path = std::filesystem::path(argv[2]);
 
         int i = 3;
         while (i < argc)
@@ -32,7 +32,7 @@ CmdParams Parser::Parse(int argc, char * argv[])
                     throw std::runtime_error("Not enough arguments");
                 }
                 filters_params.emplace_back(FilterParamsWithType{
-                    .Filter = FilterType::Crop,
+                    .type = FilterType::Crop,
                     .int_param1 = std::stoll(argv[i + 1]),
                     .int_param2 = std::stoll(argv[i + 2]),
                 });
@@ -42,7 +42,7 @@ CmdParams Parser::Parse(int argc, char * argv[])
             else if (filter == "-gs")
             {
                 filters_params.emplace_back(FilterParamsWithType{
-                    .Filter = FilterType::Grayscale,
+                    .type = FilterType::Grayscale,
                 });
                 ++i;
             }
@@ -50,7 +50,7 @@ CmdParams Parser::Parse(int argc, char * argv[])
             else if (filter == "-neg")
             {
                 filters_params.emplace_back(FilterParamsWithType{
-                    .Filter = FilterType::Negative,
+                    .type = FilterType::Negative,
                 });
                 ++i;
             }
@@ -58,7 +58,7 @@ CmdParams Parser::Parse(int argc, char * argv[])
             else if (filter == "-sharp")
             {
                 filters_params.emplace_back(FilterParamsWithType{
-                    .Filter = FilterType::Sharpening,
+                    .type = FilterType::Sharpening,
                 });
                 ++i;
             }
@@ -70,7 +70,7 @@ CmdParams Parser::Parse(int argc, char * argv[])
                     throw std::runtime_error("Not enough arguments");
                 }
                 filters_params.emplace_back(FilterParamsWithType{
-                    .Filter = FilterType::EdgeDetection,
+                    .type = FilterType::EdgeDetection,
                     .double_param = std::stof(argv[i + 1]),
                 });
                 i += 2;
@@ -83,7 +83,7 @@ CmdParams Parser::Parse(int argc, char * argv[])
                     throw std::runtime_error("Not enough arguments");
                 }
                 filters_params.emplace_back(FilterParamsWithType{
-                    .Filter = FilterType::GaussianBlur,
+                    .type = FilterType::GaussianBlur,
                     .double_param = std::stof(argv[i + 1]),
                 });
                 i += 2;
@@ -96,7 +96,7 @@ CmdParams Parser::Parse(int argc, char * argv[])
                     throw std::runtime_error("Not enough arguments");
                 }
                 filters_params.emplace_back(FilterParamsWithType{
-                    .Filter = FilterType::Crystallize,
+                    .type = FilterType::Crystallize,
                     .int_param1 = std::stoll(argv[i + 1]),
                 });
                 i += 2;
@@ -108,7 +108,7 @@ CmdParams Parser::Parse(int argc, char * argv[])
             }
         }
 
-        cmd_params.FiltersParams = filters_params;
+        cmd_params.filters_params = filters_params;
     }
     catch (std::exception & e)
     {

@@ -8,16 +8,16 @@
 int main(int argc, char * argv[])
 {
     image_processor::CmdParams cmd_params = image_processor::Parser::Parse(argc, argv);
-    std::vector<image_processor::FilterParamsWithType> params = cmd_params.FiltersParams;
+    std::vector<image_processor::FilterParamsWithType> params = cmd_params.filters_params;
 
     try
     {
-        image_processor::Image image(cmd_params.InputFilePath);
+        image_processor::Image image(cmd_params.input_path);
         std::unique_ptr<image_processor::FilterFactory> factory = std::make_unique<image_processor::ConcreteFilterFactory>();
 
         for (const auto & param : params)
         {
-            std::unique_ptr<image_processor::AbstractFilter> filter = factory->CreateFilter(param.Filter);
+            std::unique_ptr<image_processor::AbstractFilter> filter = factory->CreateFilter(param.type);
 
             if (filter)
             {
@@ -29,7 +29,7 @@ int main(int argc, char * argv[])
             }
         }
 
-        image.Write(cmd_params.OutputFilePath);
+        image.Write(cmd_params.output_path);
     }
     catch (std::exception & e)
     {

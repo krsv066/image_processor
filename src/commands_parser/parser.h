@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <filesystem>
 #include <vector>
 #include "filters.h"
 
@@ -9,7 +10,7 @@ namespace image_processor
 
 struct FilterParamsWithType
 {
-    FilterType Filter;
+    FilterType type;
     int64_t int_param1;
     int64_t int_param2;
     double double_param;
@@ -17,9 +18,9 @@ struct FilterParamsWithType
 
 struct CmdParams
 {
-    const char * InputFilePath;
-    const char * OutputFilePath;
-    std::vector<FilterParamsWithType> FiltersParams;
+    std::filesystem::path input_path;
+    std::filesystem::path output_path;
+    std::vector<FilterParamsWithType> filters_params;
 };
 
 class Parser

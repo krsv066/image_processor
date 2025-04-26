@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <filesystem>
 #include <vector>
 
 namespace image_processor
@@ -46,9 +47,9 @@ using Pixels = std::vector<std::vector<Pixel>>;
 class Image
 {
 public:
-    explicit Image(const char * input_file_path);
-    void Read(const char * input_file_path);
-    void Write(const char * output_file_path);
+    explicit Image(const std::filesystem::path & input_file_path);
+    void Read(const std::filesystem::path & input_file_path);
+    void Write(const std::filesystem::path & output_file_path);
     Pixels GetPixels() const;
     void SetPixels(const Pixels & pixels);
     int32_t GetWidth() const;
