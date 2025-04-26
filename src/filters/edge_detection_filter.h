@@ -1,3 +1,5 @@
+#pragma once
+
 #include "abstract_filter.h"
 
 namespace image_processor

@@ -9,6 +9,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_compile_options(-Wall -Wextra -Wpedantic -O3)
 
 include_directories(
+        src/application
         src/commands_parser
         src/filters
         src/image
@@ -17,6 +18,7 @@ include_directories(
 add_executable(
         image_processor
         src/main.cpp
+        src/application/application.cpp
         src/commands_parser/parser.cpp
         src/image/image.cpp
         src/filters/concrete_filter_factory.cpp

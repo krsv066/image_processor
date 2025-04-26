@@ -1,9 +1,10 @@
 #pragma once
 
+#include "abstract_filter.h"
+
 #include <cstdint>
 #include <filesystem>
 #include <vector>
-#include "filters.h"
 
 namespace image_processor
 {

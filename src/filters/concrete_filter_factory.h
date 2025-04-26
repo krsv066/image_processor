@@ -1,7 +1,6 @@
 #pragma once
 
 #include "filter_factory.h"
-#include "filters.h"
 
 namespace image_processor
 {
