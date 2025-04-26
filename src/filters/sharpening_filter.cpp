@@ -4,11 +4,11 @@
 namespace image_processor
 {
 
-void Sharpening::Process(Image & image, int64_t, int64_t, double)
+void Sharpening::Process(Image & image, FilterParams)
 {
     ScaleFilter filter;
     const int64_t scale = 5;
-    filter.Process(image, scale, 0, 0);
+    filter.Process(image, {scale, 0, 0});
 }
 
 } // namespace image_processor

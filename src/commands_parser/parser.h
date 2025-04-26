@@ -7,19 +7,19 @@
 namespace image_processor
 {
 
-struct FilterParams
+struct FilterParamsWithType
 {
     FilterType Filter;
-    int64_t IntParam1;
-    int64_t IntParam2;
-    double DoubleParam;
+    int64_t int_param1;
+    int64_t int_param2;
+    double double_param;
 };
 
 struct CmdParams
 {
     const char * InputFilePath;
     const char * OutputFilePath;
-    std::vector<FilterParams> FiltersParams;
+    std::vector<FilterParamsWithType> FiltersParams;
 };
 
 class Parser

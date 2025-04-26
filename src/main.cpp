@@ -8,7 +8,7 @@
 int main(int argc, char * argv[])
 {
     image_processor::CmdParams cmd_params = image_processor::Parser::Parse(argc, argv);
-    std::vector<image_processor::FilterParams> params = cmd_params.FiltersParams;
+    std::vector<image_processor::FilterParamsWithType> params = cmd_params.FiltersParams;
 
     try
     {
@@ -21,7 +21,7 @@ int main(int argc, char * argv[])
 
             if (filter)
             {
-                filter->Process(image, param.IntParam1, param.IntParam2, param.DoubleParam);
+                filter->Process(image, {param.int_param1, param.int_param2, param.double_param});
             }
             else
             {

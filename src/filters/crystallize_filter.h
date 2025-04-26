@@ -6,7 +6,7 @@ namespace image_processor
 class Crystallize final : public AbstractFilter
 {
 public:
-    void Process(Image & image, int64_t int_param1, int64_t int_param2, double double_param) override;
+    void Process(Image & image, FilterParams params) override;
 
 private:
     std::vector<std::pair<int32_t, int32_t>> RandomCoords(int32_t crystals_count, int32_t height, int32_t width);

@@ -40,11 +40,11 @@ Crystallize::FindNearestPixel(const std::vector<std::pair<int32_t, int32_t>> & r
     return best_pixel_number;
 }
 
-void Crystallize::Process(Image & image, int64_t int_param1, int64_t, double)
+void Crystallize::Process(Image & image, FilterParams params)
 {
     Pixels pixels = image.GetPixels();
 
-    const int64_t crystals_count = int_param1;
+    const int64_t crystals_count = params.int_param1;
     std::vector<std::pair<int32_t, int32_t>> random_coords = RandomCoords(crystals_count, image.GetHeight(), image.GetWidth());
 
     std::vector<Pixel> random_pixels_colors;

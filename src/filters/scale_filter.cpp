@@ -5,7 +5,7 @@
 namespace image_processor
 {
 
-void ScaleFilter::Process(Image & image, int64_t int_param1, int64_t, double)
+void ScaleFilter::Process(Image & image, FilterParams params)
 {
     Pixels pixels = image.GetPixels();
     std::vector<Pixel> new_pixels_line(image.GetWidth(), {0, 0, 0});
@@ -19,9 +19,9 @@ void ScaleFilter::Process(Image & image, int64_t int_param1, int64_t, double)
         for (int32_t j = 0; j < image.GetWidth(); ++j)
         {
             Pixel new_pixel;
-            int64_t new_blue = static_cast<int64_t>(pixels[i][j].Blue) * int_param1;
-            int64_t new_green = static_cast<int64_t>(pixels[i][j].Green) * int_param1;
-            int64_t new_red = static_cast<int64_t>(pixels[i][j].Red) * int_param1;
+            int64_t new_blue = static_cast<int64_t>(pixels[i][j].Blue) * params.int_param1;
+            int64_t new_green = static_cast<int64_t>(pixels[i][j].Green) * params.int_param1;
+            int64_t new_red = static_cast<int64_t>(pixels[i][j].Red) * params.int_param1;
 
             uint8_t extreme_count = 0;
 

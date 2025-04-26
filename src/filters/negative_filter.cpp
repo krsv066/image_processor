@@ -6,7 +6,7 @@
 namespace image_processor
 {
 
-void Negative::Process(Image & image, int64_t, int64_t, double)
+void Negative::Process(Image & image, FilterParams)
 {
     Pixels pixels = image.GetPixels();
 

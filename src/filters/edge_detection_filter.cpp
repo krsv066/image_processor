@@ -7,21 +7,21 @@
 namespace image_processor
 {
 
-void EdgeDetection::Process(Image & image, int64_t, int64_t, double double_param)
+void EdgeDetection::Process(Image & image, FilterParams params)
 {
     Grayscale grayscale_filter;
-    grayscale_filter.Process(image, 0, 0, 0);
+    grayscale_filter.Process(image, {0, 0, 0});
 
     ScaleFilter scale_filter;
     const int64_t scale = 4;
-    scale_filter.Process(image, scale, 0, 0);
+    scale_filter.Process(image, {scale, 0, 0});
 
     Pixels pixels = image.GetPixels();
 
     const uint8_t min_char = 0;
     const uint8_t max_char = 255;
 
-    const uint8_t threshold = std::clamp(static_cast<uint8_t>(double_param * static_cast<double>(max_char)), min_char, max_char);
+    const uint8_t threshold = std::clamp(static_cast<uint8_t>(params.double_param * static_cast<double>(max_char)), min_char, max_char);
 
     for (auto & line : pixels)
     {
