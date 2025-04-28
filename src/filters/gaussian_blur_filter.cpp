@@ -37,7 +37,7 @@ void GaussianBlur::ProcessLines(Image & image, const std::vector<double> & coeff
 
             for (int64_t x = x_0 - delta_window; x <= x_0 + delta_window; ++x)
             {
-                int64_t curr_x_0 = std::clamp(x, 0ll, static_cast<int64_t>(image.GetWidth() - 1));
+                int64_t curr_x_0 = std::clamp(x, int64_t{0}, static_cast<int64_t>(image.GetWidth() - 1));
                 new_blue += static_cast<double>(pixels[line][curr_x_0].Blue) * coefficients[x - (x_0 - delta_window)];
                 new_green += static_cast<double>(pixels[line][curr_x_0].Green) * coefficients[x - (x_0 - delta_window)];
                 new_red += static_cast<double>(pixels[line][curr_x_0].Red) * coefficients[x - (x_0 - delta_window)];
@@ -70,7 +70,7 @@ void GaussianBlur::ProcessColumns(Image & image, const std::vector<double> & coe
 
             for (int64_t y = y_0 - delta_window; y <= y_0 + delta_window; ++y)
             {
-                int64_t curr_y_0 = std::clamp(y, 0ll, static_cast<int64_t>(image.GetHeight() - 1));
+                int64_t curr_y_0 = std::clamp(y, int64_t{0}, static_cast<int64_t>(image.GetHeight() - 1));
                 new_blue += static_cast<double>(pixels[curr_y_0][column].Blue) * coefficients[y - (y_0 - delta_window)];
                 new_green += static_cast<double>(pixels[curr_y_0][column].Green) * coefficients[y - (y_0 - delta_window)];
                 new_red += static_cast<double>(pixels[curr_y_0][column].Red) * coefficients[y - (y_0 - delta_window)];
@@ -80,8 +80,7 @@ void GaussianBlur::ProcessColumns(Image & image, const std::vector<double> & coe
             new_green = new_green / coefficients_sum;
             new_red = new_red / coefficients_sum;
 
-            Pixel new_pixel = {static_cast<uint8_t>(new_blue), static_cast<uint8_t>(new_green), static_cast<uint8_t>(new_red)};
-            new_pixels[y_0][column] = new_pixel;
+            new_pixels[y_0][column] = {static_cast<uint8_t>(new_blue), static_cast<uint8_t>(new_green), static_cast<uint8_t>(new_red)};
         }
     }
     image.SetPixels(new_pixels);

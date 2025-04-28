@@ -50,12 +50,12 @@ public:
     explicit Image(const std::filesystem::path & input_file_path);
     void Read(const std::filesystem::path & input_file_path);
     void Write(const std::filesystem::path & output_file_path);
-    Pixels GetPixels() const;
     void SetPixels(const Pixels & pixels);
-    int32_t GetWidth() const;
     void SetWidth(int32_t new_width);
-    int32_t GetHeight() const;
     void SetHeight(int32_t new_height);
+    Pixels GetPixels() const;
+    int32_t GetWidth() const;
+    int32_t GetHeight() const;
     uint32_t CountOffset() const;
 
 private:

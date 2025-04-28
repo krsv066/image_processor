@@ -3,6 +3,7 @@
 #include "scale_filter.h"
 
 #include <algorithm>
+#include <cstdint>
 
 namespace image_processor
 {
@@ -18,10 +19,9 @@ void EdgeDetection::Process(Image & image, FilterParams params)
 
     Pixels pixels = image.GetPixels();
 
-    const uint8_t min_char = 0;
     const uint8_t max_char = 255;
 
-    const uint8_t threshold = std::clamp(static_cast<uint8_t>(params.double_param * static_cast<double>(max_char)), min_char, max_char);
+    const uint8_t threshold = std::clamp(static_cast<uint8_t>(params.double_param * static_cast<double>(max_char)), uint8_t{0}, max_char);
 
     for (auto & line : pixels)
     {
@@ -29,15 +29,11 @@ void EdgeDetection::Process(Image & image, FilterParams params)
         {
             if (pixel.Blue > threshold || pixel.Green > threshold || pixel.Red > threshold)
             {
-                pixel.Blue = max_char;
-                pixel.Green = max_char;
-                pixel.Red = max_char;
+                pixel = {max_char, max_char, max_char};
             }
             else
             {
-                pixel.Blue = min_char;
-                pixel.Green = min_char;
-                pixel.Red = min_char;
+                pixel = {};
             }
         }
     }

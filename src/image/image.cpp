@@ -71,19 +71,9 @@ void Image::Write(const std::filesystem::path & output_file_path)
     }
 }
 
-Pixels Image::GetPixels() const
-{
-    return pixels_;
-}
-
 void Image::SetPixels(const Pixels & pixels)
 {
     pixels_ = pixels;
-}
-
-int32_t Image::GetWidth() const
-{
-    return info_header_.width;
 }
 
 void Image::SetWidth(int32_t new_width)
@@ -91,14 +81,24 @@ void Image::SetWidth(int32_t new_width)
     info_header_.width = new_width;
 }
 
-int32_t Image::GetHeight() const
-{
-    return info_header_.height;
-}
-
 void Image::SetHeight(int32_t new_height)
 {
     info_header_.height = new_height;
+}
+
+Pixels Image::GetPixels() const
+{
+    return pixels_;
+}
+
+int32_t Image::GetWidth() const
+{
+    return info_header_.width;
+}
+
+int32_t Image::GetHeight() const
+{
+    return info_header_.height;
 }
 
 uint32_t Image::CountOffset() const

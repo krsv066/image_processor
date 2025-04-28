@@ -12,10 +12,16 @@ namespace image_processor
 std::vector<std::pair<int32_t, int32_t>> Crystallize::RandomCoords(int32_t crystals_count, int32_t height, int32_t width)
 {
     std::vector<std::pair<int32_t, int32_t>> numbers;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int32_t> dist_height(0, height - 1);
+    std::uniform_int_distribution<int32_t> dist_width(0, width - 1);
+
     for (int32_t i = 0; i < crystals_count; ++i)
     {
-        numbers.emplace_back(std::make_pair(static_cast<int32_t>(std::rand()) % height, static_cast<int32_t>(std::rand()) % width));
+        numbers.emplace_back(std::make_pair(dist_height(gen), dist_width(gen)));
     }
+
     return numbers;
 }
 

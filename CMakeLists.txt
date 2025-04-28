@@ -12,6 +12,7 @@ include_directories(
         src/application
         src/commands_parser
         src/filters
+        src/filters_utils
         src/image
 )
 
@@ -21,7 +22,6 @@ add_executable(
         src/application/application.cpp
         src/commands_parser/parser.cpp
         src/image/image.cpp
-        src/filters/concrete_filter_factory.cpp
         src/filters/scale_filter.cpp
         src/filters/negative_filter.cpp
         src/filters/grayscale_filter.cpp
@@ -30,4 +30,5 @@ add_executable(
         src/filters/crop_filter.cpp
         src/filters/gaussian_blur_filter.cpp
         src/filters/crystallize_filter.cpp
+        src/filters_utils/concrete_filter_factory.cpp
 )
