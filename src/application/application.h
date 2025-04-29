@@ -12,7 +12,7 @@ public:
     void Run() const;
 
 private:
-    CmdParams cmd_params_;
+    CmdArgs cmd_params_;
 };
 
 } // namespace image_processor

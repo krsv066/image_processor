@@ -17,7 +17,7 @@ struct FilterParamsWithType
     double double_param;
 };
 
-struct CmdParams
+struct CmdArgs
 {
     std::filesystem::path input_path;
     std::filesystem::path output_path;
@@ -27,7 +27,7 @@ struct CmdParams
 class Parser
 {
 public:
-    static CmdParams Parse(int argc, char * argv[]);
+    static CmdArgs Parse(int argc, char * argv[]);
 };
 
 } // namespace image_processor
